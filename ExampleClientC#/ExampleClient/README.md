@@ -5,7 +5,7 @@
 
 ## 2. Configure your environment variables
 
-Modify the local file "**.env**":
+Modify the local file "**appsettings.json**":
 - **API_KEY**: Your API-Key for your SigBox
 - **SERVER_URL**: The Server URL under which the signature server is reachable
 - **SUCCESS_URL**: the URL to which you will be redirected, when the signature process was successful

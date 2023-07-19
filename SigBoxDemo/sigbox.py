@@ -1,8 +1,6 @@
 import json
-import sys
 import requests
 from typing import Union
-
 
 class SigBox:    
     def __init__(self, api_key: str, server_url : str) -> None:
@@ -28,7 +26,7 @@ class SigBox:
         Returns:
             _type_: JSON of GET-Request
         """
-        ret = requests.get(self.SERVER + url,  headers = self.header)
+        ret = requests.get(self._combineUrl(url),  headers = self.header)
         if not ret.ok:
             raise TypeError(f"error getting {url=} {ret.status_code=}")
         return json.loads(ret.content)
@@ -46,11 +44,10 @@ class SigBox:
         Returns:
             _type_: JSON of GET-Request
         """
-        ret = requests.get(self.SERVER + url,  headers = self.header)
+        ret = requests.get(self._combineUrl(url),  headers = self.header)
         if not ret.ok:
             raise TypeError(f"error getting {url=} {ret.status_code=}")
         return ret.content
-    
 
     def _post(self, url: str, **kwargs):
         """Sends a POST-Request
@@ -64,7 +61,7 @@ class SigBox:
         Returns:
             _type_: JSON of POST-Request
         """
-        ret = requests.post(self.SERVER + url, headers=self.header, **kwargs)
+        ret = requests.post(self._combineUrl(url), headers=self.header, **kwargs)
         if not ret.ok:
             raise TypeError(f"error posting {url=} {ret.status_code=}")
         return ret
@@ -82,7 +79,7 @@ class SigBox:
         Returns:
             _type_: JSON of PUT-Request
         """
-        ret = requests.put(self.SERVER + url, headers=self.header, **kwargs)
+        ret = requests.put(self._combineUrl(url), headers=self.header, **kwargs)
         if not ret.ok:
             raise TypeError(f"error putting {url=} {ret.status_code=}")
         return ret
@@ -93,11 +90,25 @@ class SigBox:
         Args:
             - url (str): DELETE-Request URL
         """
-        ret = requests.delete(self.SERVER + url, headers=self.header)
+        ret = requests.delete(self._combineUrl(url), headers=self.header)
         if not ret.ok:
             raise TypeError(f"error deleting {url=} {ret.status_code=}")
         return ret
 
+    def _combineUrl(self, url : str):
+        serverEndingWithSlash = self.SERVER.endswith("/")
+        urlStartingWithSlash = url.startswith("/")
+        
+        if (serverEndingWithSlash and urlStartingWithSlash):
+            print(self.SERVER + url[1:])
+            return self.SERVER + url[1:]
+        elif (serverEndingWithSlash and not urlStartingWithSlash or 
+              not serverEndingWithSlash and urlStartingWithSlash):
+            print(self.SERVER + url) 
+            return self.SERVER + url
+        else:
+            print(url + "/" + self.SERVER)
+            return self.SERVER + "/" + url
         
     def add_template(self, filename: str):
         """Uploads a new template
@@ -250,5 +261,3 @@ class SigBox:
             - doc_id (str): DocumentID of a document
         """
         return self._delete(f'/signaturebatches/{ticket_id}/documents/{document_id}')
-
-   

@@ -8,9 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="toBeSigned\**" />
+    <EmbeddedResource Remove="toBeSigned\**" />
+    <None Remove="toBeSigned\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	<PackageReference Include="Microsoft.Extensions.Configuration" Version="6" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="signedDocuments\another_signed_test_document.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TemplateBeispiel.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="uploadDocuments\test_document.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

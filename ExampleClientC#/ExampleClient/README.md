@@ -11,18 +11,16 @@ Modify the local file "**appsettings.json**":
 - **SUCCESS_URL**: the URL to which you will be redirected, when the signature process was successful
 - **ERROR_URL**: the URL to which you will be redirected, when the signature process failed
 
-<br/>
-
-## 3. Modify "uploadDirectory" / "downloadDirectory" and add PDF documents to it
-Modify the following variables in your code according to your setup:
-
-- **uploadDirectory**: All files inside this directory are uploaded to the batch
-- **downloadDirectory**: When the batch has been signed, you will find all signed documents in this directory
-- **templatePath**: The path at which a template.xml file can be found (an example: TemplateBeispiel.xml, can be found in the project directory.).
+If you do not have an API-Key please contact the A-Trust sales team (sales@a-trust.at).
 
 <br/>
 
-Add PDF documents that you want to be signed into the uploadDirectory. You can find your signed documents in the downloadDirectory.
+## 3. Add PDF documents to your upload directory if needed
+Add PDF-documents you want to be signed to the ./uploadDocuments directory. PDF-Documents from this directory will be signed with this program.
+
+<br/>
+
+You can find your signed documents after the successful signing process in the signedDocuments directory. Be aware: The signedDocuments directory is in the same directory as your executable.
 
 <br/>
 

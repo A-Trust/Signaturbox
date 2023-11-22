@@ -22,6 +22,10 @@ def main() -> None:
         print("Please read readme.md to see how to configure your environment")    
         sys.exit(-1) 
 
+    if not API_KEY:
+        print("API-Key was not set in the environment file (.env). \nIf you do not have an API-Key please contact the A-Trust sales team (sales@a-trust.at)");
+        sys.exit(-1)
+
     upload_dir = "examples"
     download_dir = "signed"
 
